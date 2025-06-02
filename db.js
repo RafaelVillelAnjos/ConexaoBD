@@ -1,5 +1,3 @@
-// const { Pool } = require("pg");
-
 async function connect() {  
   const { Pool } = require("pg");
     if(global.connection)
@@ -25,6 +23,21 @@ async function connect() {
 
 connect();
 
+// Rota GET de todos os clientes
+async function selectCustomers() {
+  const client = await connect();
+  const res = await client.query("SELECT * FROM client");
+  return res.rows;
+}
+
+// Rota GET de um cliente específico
+async function selectCustomer(id) {
+  const client = await connect();
+  const res = await client.query("SELECT * FROM client WHERE cpf=$1", [id]);
+  return res.rows;
+}
+
+// Rota POST 
 // Função assíncrona, ou seja, não vai rodar direto, só depois de algo acontecer
 async function InsertCustomer(customer){
   // Vai esperar até que a informação chegue, se não chegar não roda
@@ -40,5 +53,7 @@ async function InsertCustomer(customer){
 } 
 
 module.export = {
-  InsertCustomer
+  InsertCustomer,
+  selectCustomers,
+  selectCustomer
 } 

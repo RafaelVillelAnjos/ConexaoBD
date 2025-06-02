@@ -1,0 +1,91 @@
+
+CRIAR BANCO DE DADOS:  CREATE DATABASE dbprojetos;
+
+Criar a tabela "client" com os campos "cpf", "nome", "email", "idade", "profissao":
+CREATE TABLE client (
+  cpf VARCHAR(11) PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  idade INTEGER,
+  profissao VARCHAR(50)
+);
+
+--------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
+
+Arquivos de configuração:
+    .env
+
+    Dentro de .env:
+        USER_NAME = 'postgres'
+        HOST_NAME = 'localhost'
+        DB_NAME = 'dbprojetos'
+        DB_PASSWORD = 'davide'
+        DB_DIALECT = 'postgres'
+        PORT_NUMBER = '5432'
+
+Arquivo index.js: É o arquivo que vai ser responsável por rodar a aplicação
+    Tudo que for relativo ao back-end vai no arquivo index.js. Ou seja, para interagir com o banco, a informação bate aqui primeiro e em seguida vai para db.js
+
+Arquivo db.js:
+    Tudo que for relativo a banco de dados vai aqui
+
+----------------------------- ou ----------------------------------------------
+PORT=3000
+CONNECTION_SCTRING=postgresql://localhost
+                                             Se o banco não tem SENHA
+CONNECTION_SCTRING=postgresql://usuario:SENHA@SERVIDOR:PORTA/nomeDObanco
+                                             Se o banco tiver SENHA
+Caso o banco tiver SENHA:
+CONNECTION_SCTRING=postgresql://username:password@host:port/database
+Exemplo: postgresql://john:secret@localhost:5432/my_database
+
+Caso o banco não tiver SENHA:
+Omitting the password entirely====>>>>> CONNECTION_SCTRING=postgresql://username@localhost:5432/meu_bancoDeDados
+Using an empty password field ====>>>> CONNECTION_SCTRING=postgresql://username:@localhost:5432/meu_bancoDeDados
+
+---------------------------------------------------------------------------
+Teste da rota POST:
+- Usei postman
+- Selecionei POST
+- URL: htpp://localhost:3000/client
+- BODY -> RAW:
+{
+  "cpf": "12345678901",
+  "nome": "João da Silva",
+  "email": "joao.silva@example.com",
+  "idade": 30,
+  "profissao": "Engenheiro"
+}
+
+
+- HEADER -> KEY: Content-Type 
+- HEADER -> Value: application/json
+----------------------------------------------------------------------------
+
+Teste da rota PACTH:
+- Usei postman
+- Selecionei PACTH
+- URL: http://localhost:3000/clientes/3
+- BODY -> RAW:
+{
+    "nome": "João",
+    "idade": 34,
+    "uf": "CE"
+}
+
+----------------------------------------------------------------------------
+
+Teste da rota DELETE:
+- Usei postman
+- Selecionei DELETE
+- URL: http://localhost:3000/clientes/id_do_cliente
+
+----------------------------------------------------------------------------
+------------------------ PUT and PACTH -------------------------------------
+PUT: FICA PARA DEPOIS
+
+----------------------------------------------------------------------------
+----------------------------------------------------------------------------
+PARTIU MVC ====>>>>>>>>>
+           CRIAR UMA PASTA E COLOCAR db.js e uma outra pasta para colocar index.js
