@@ -32,6 +32,12 @@ app.post("/client", async (req, res) => {
     res.sendStatus(201)
 })
 
+// Rota DELETE
+app.delete("/client/:id", async (req, res) => {
+    await db.deleteCustomer(req.params.id)
+    res.sendStatus(204)
+})
+
 app.listen(port);
 
 console.log("Backend Rodando!")

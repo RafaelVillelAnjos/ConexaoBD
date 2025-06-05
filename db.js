@@ -37,6 +37,15 @@ async function selectCustomer(id) {
   return res.rows;
 }
 
+// Rota DELETE
+async function deleteCustomer(id) {
+  const client = await connect();
+  const sql = "DELETE FROM client WHERE cpf=$1";
+  const values = [id];
+  
+  await client.query(sql, values)
+}
+
 // Rota POST 
 // Função assíncrona, ou seja, não vai rodar direto, só depois de algo acontecer
 async function InsertCustomer(customer){
@@ -52,8 +61,9 @@ async function InsertCustomer(customer){
 
 } 
 
-module.export = {
+module.exports = {
   InsertCustomer,
   selectCustomers,
+  deleteCustomer,
   selectCustomer
 } 
